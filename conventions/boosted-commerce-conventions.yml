@@ -1,0 +1,117 @@
+generated: '2026-08-08'
+method: probed
+source: https://primelabs.org/agents.md + mcp/boosted-commerce-ucp-tools-list.json
+scope: >-
+  Cross-cutting runtime semantics of the Universal Commerce Protocol shopping service served on
+  every Boosted Commerce brand storefront. Everything below is taken from the provider's own
+  published agent instructions or from the JSON Schema of the live tool manifest — nothing is
+  inferred beyond what those two documents state.
+
+transport:
+  protocol: JSON-RPC 2.0
+  method: POST
+  content_type: application/json
+  accept: application/json, text/event-stream
+  path: /api/ucp/mcp
+  discovery: /.well-known/ucp
+
+authentication:
+  style: anonymous
+  agent_identity: meta.ucp-agent.profile (URI, required on every call)
+  detail: see authentication/boosted-commerce-authentication.yml
+
+idempotency:
+  supported: true
+  key: meta.idempotency-key
+  location: request body, inside the `meta` object
+  scope: complete_checkout
+  required: true
+  retention: not published
+  evidence: >-
+    The `complete_checkout` inputSchema declares `meta.idempotency-key` ("An idempotency key for
+    completing the checkout") and lists it in `meta.required` alongside `ucp-agent`. Verified in the
+    live tools/list response, mcp/boosted-commerce-ucp-tools-list.json.
+  note: >-
+    Idempotency is enforced only on the money-moving operation. Cart and checkout mutation tools
+    (create_cart, update_cart, create_checkout, update_checkout) do not declare an idempotency key.
+
+pagination:
+  style: cursor
+  applies_to:
+  - search_catalog
+  request_param: catalog.pagination.cursor
+  response_field: pagination.cursor
+  detail: >-
+    "Results are paginated, with initial results limited to improve experience. Use the
+    pagination.cursor from the response to fetch additional pages when users request more results."
+    — search_catalog description, live tool manifest.
+
+rate_limiting:
+  documented: true
+  dimension: per IP
+  signal: HTTP 429
+  guidance: back off on 429 responses
+  published_limits: none
+  evidence: >-
+    "Respect rate limits. The MCP endpoint is rate-limited per IP. Back off on 429 responses." —
+    https://primelabs.org/agents.md
+
+buyer_context:
+  documented: true
+  parameters:
+  - context.address_country
+  - context.currency
+  purpose: accurate pricing and availability
+  evidence: >-
+    "Use buyer context. Pass context.address_country and context.currency for accurate pricing and
+    availability." — https://primelabs.org/agents.md
+
+identifiers:
+  style: Shopify global IDs
+  examples:
+  - gid://shopify/Product/{id}
+  - gid://shopify/ProductVariant/{id}
+  - gid://shopify/Checkout/{id}
+  evidence: declared in the get_checkout, lookup_catalog and get_product inputSchemas.
+
+human_in_the_loop:
+  required_for: complete_checkout
+  rule: >-
+    Agents must not complete payment without explicit, contemporaneous buyer consent. Agents unable
+    to obtain it are directed to route the purchase through Shop Pay via https://shop.app/SKILL.md.
+
+versioning:
+  scheme: dated protocol version
+  current: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  negotiation: >-
+    The /.well-known/ucp profile publishes a supported_versions map pointing at a version-pinned
+    discovery document per version.
+  detail: see lifecycle/boosted-commerce-lifecycle.yml
+
+errors:
+  envelope: JSON-RPC 2.0 error object
+  detail: see errors/boosted-commerce-problem-types.yml
+
+read_only_surface:
+  authentication: none
+  endpoints:
+  - GET /collections/all
+  - GET /collections/{handle}/products.json
+  - GET /products/{handle}
+  - GET /products/{handle}.json
+  - GET /search?q={query}&type=product
+  - GET /sitemap.xml
+  evidence: >-
+    Published under "Read-Only Browsing (No Authentication Required)" in
+    https://primelabs.org/agents.md. GET https://primelabs.org/collections/all/products.json
+    returned HTTP 200 application/json on 2026-08-08.
+
+not_published:
+- request-id / trace header convention
+- field expansion or sparse fieldsets
+- customer-defined metadata fields
+- idempotency key retention window
+- numeric rate-limit values or RateLimit-* headers

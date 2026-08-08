@@ -1,18 +1,141 @@
 aid: boosted-commerce
 name: Boosted Commerce
-description: 'Boosted Commerce is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Boosted Commerce is a Los Angeles based consumer brand platform that acquires and operates
+  direct-to-consumer and Amazon FBA businesses in health, wellness, beauty and longevity. Founded
+  by Keith Richman and Charlie Chanaratsopon, the company runs a portfolio of supplement and
+  skincare brands — Prime Labs, Vital Vitamins, Happy Healthy Hippie and Asterwood — and is
+  expanding those brands from marketplace and DTC channels into national retail with EDI-ready
+  vendor operations. Boosted Commerce publishes no first-party developer program of its own, but
+  every brand storefront runs on Shopify and serves a live, anonymous agent-commerce surface:
+  a Universal Commerce Protocol (UCP) merchant profile at /.well-known/ucp, agent instructions at
+  /llms.txt and /agents.md, and a Model Context Protocol endpoint at /api/ucp/mcp exposing 13
+  catalog, cart, checkout and order tools with published JSON Schema inputs.
 url: https://raw.githubusercontent.com/api-evangelist/boosted-commerce/refs/heads/main/apis.yml
+image: https://boostedcommerce.com/wp-content/uploads/2026/07/Boosted_Green_Ico_512-300x300.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-2026-08-08
 specificationVersion: '0.20'
 created: '2026-08-08'
 modified: '2026-08-08'
 tags:
 - Company
-apis: []
+- E-Commerce
+- Retail
+- Consumer Packaged Goods
+- Health and Wellness
+- Supplements
+- Beauty
+- Agentic Commerce
+- Universal Commerce Protocol
+- Model Context Protocol
+- Shopify
+- Direct to Consumer
+apis:
+- name: Prime Labs Storefront Agent API (UCP / MCP)
+  description: >-
+    Anonymous agent-commerce surface for the Prime Labs supplement storefront, implementing the
+    Universal Commerce Protocol 2026-04-08 over MCP. Thirteen tools cover catalog search, product
+    lookup, cart lifecycle, checkout lifecycle and order retrieval; complete_checkout requires an
+    idempotency key and contemporaneous buyer approval. Read-only product and collection JSON is
+    also available without authentication.
+  humanURL: https://primelabs.org/agents.md
+  baseURL: https://primelabs.org/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - Model Context Protocol
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Supplements
+  properties:
+  - type: MCPServer
+    url: mcp/boosted-commerce-mcp.yml
+  - type: Documentation
+    url: https://primelabs.org/agents.md
+  - type: LLMsTxt
+    url: llms/boosted-commerce-prime-labs-llms.txt
+  - type: WellKnown
+    url: well-known/boosted-commerce-prime-labs-ucp.json
+  - type: Website
+    url: https://primelabs.org
+  - type: TermsOfService
+    url: https://primelabs.org/policies/terms-of-service
+  - type: PrivacyPolicy
+    url: https://primelabs.org/policies/privacy-policy
+- name: Vital Vitamins Storefront Agent API (UCP / MCP)
+  description: >-
+    Anonymous agent-commerce surface for the Vital Vitamins beauty and longevity supplement
+    storefront, implementing the Universal Commerce Protocol 2026-04-08 over MCP with the same
+    thirteen catalog, cart, checkout and order tools served by every Boosted Commerce brand store.
+  humanURL: https://www.myvitalvitamins.com/agents.md
+  baseURL: https://www.myvitalvitamins.com/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - Model Context Protocol
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Supplements
+  properties:
+  - type: MCPServer
+    url: mcp/boosted-commerce-mcp.yml
+  - type: Documentation
+    url: https://www.myvitalvitamins.com/agents.md
+  - type: LLMsTxt
+    url: llms/boosted-commerce-vital-vitamins-llms.txt
+  - type: WellKnown
+    url: well-known/boosted-commerce-vital-vitamins-ucp.json
+  - type: Website
+    url: https://www.myvitalvitamins.com
+- name: Happy Healthy Hippie Storefront Agent API (UCP / MCP)
+  description: >-
+    Anonymous agent-commerce surface for the Happy Healthy Hippie plant-based herbal wellness
+    storefront, implementing the Universal Commerce Protocol 2026-04-08 over MCP with the same
+    thirteen catalog, cart, checkout and order tools served by every Boosted Commerce brand store.
+  humanURL: https://happyhealthyhippieco.com/agents.md
+  baseURL: https://happyhealthyhippieco.com/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - Model Context Protocol
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Supplements
+  properties:
+  - type: MCPServer
+    url: mcp/boosted-commerce-mcp.yml
+  - type: Documentation
+    url: https://happyhealthyhippieco.com/agents.md
+  - type: LLMsTxt
+    url: llms/boosted-commerce-happy-healthy-hippie-llms.txt
+  - type: WellKnown
+    url: well-known/boosted-commerce-happy-healthy-hippie-ucp.json
+  - type: Website
+    url: https://happyhealthyhippieco.com
+- name: Asterwood Storefront Agent API (UCP / MCP)
+  description: >-
+    Anonymous agent-commerce surface for the Asterwood peptide-powered skincare storefront,
+    implementing the Universal Commerce Protocol 2026-04-08 over MCP with the same thirteen
+    catalog, cart, checkout and order tools served by every Boosted Commerce brand store.
+  humanURL: https://www.asterwood.co/agents.md
+  baseURL: https://www.asterwood.co/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - Model Context Protocol
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Beauty
+  properties:
+  - type: MCPServer
+    url: mcp/boosted-commerce-mcp.yml
+  - type: Documentation
+    url: https://www.asterwood.co/agents.md
+  - type: LLMsTxt
+    url: llms/boosted-commerce-asterwood-llms.txt
+  - type: WellKnown
+    url: well-known/boosted-commerce-asterwood-ucp.json
+  - type: Website
+    url: https://www.asterwood.co
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +143,47 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://boostedcommerce.com
+- type: About
+  url: https://boostedcommerce.com/about/
+- type: Support
+  url: https://boostedcommerce.com/contact/
+- type: TermsOfService
+  url: https://boostedcommerce.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://boostedcommerce.com/privacy-policy-2/
+- type: Accessibility
+  url: https://boostedcommerce.com/accessibility/
+- type: GitHubOrganization
+  url: https://github.com/boosted-commerce
+- type: Investment
   url: https://forgeglobal.com/boosted-commerce_stock/
+- type: MCPServer
+  url: mcp/boosted-commerce-mcp.yml
+- type: LLMsTxt
+  url: llms/boosted-commerce-llms.txt
+- type: WellKnown
+  url: well-known/boosted-commerce-well-known.yml
+- type: Authentication
+  url: authentication/boosted-commerce-authentication.yml
+- type: Conventions
+  url: conventions/boosted-commerce-conventions.yml
+- type: Idempotency
+  url: conventions/boosted-commerce-conventions.yml
+- type: RateLimits
+  url: conventions/boosted-commerce-conventions.yml
+- type: ErrorCatalog
+  url: errors/boosted-commerce-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/boosted-commerce-lifecycle.yml
+- type: Conformance
+  url: conformance/boosted-commerce-conformance.yml
+- type: DomainSecurity
+  url: security/boosted-commerce-domain-security.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-08'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

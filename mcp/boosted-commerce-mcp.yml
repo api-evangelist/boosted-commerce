@@ -1,0 +1,134 @@
+generated: '2026-08-08'
+method: probed
+status: published
+source: https://primelabs.org/api/ucp/mcp
+note: >-
+  Live, anonymous MCP endpoint. `tools/list` was called over JSON-RPC 2.0 with no credentials and
+  returned HTTP 200 with 13 tools and full JSON Schema (draft 2020-12) inputSchemas. The verbatim
+  response is saved at mcp/boosted-commerce-ucp-tools-list.json. All four Boosted Commerce brand
+  storefronts returned a byte-identical tool set — the server is provided by the Shopify platform
+  as its Universal Commerce Protocol (UCP) shopping service, deployed on each brand's own host and
+  operating over that brand's own catalog. This is a platform-supplied surface, not a first-party
+  Boosted Commerce engineering artifact; it is recorded here because it is genuinely served from
+  hosts Boosted Commerce owns and is callable by agents today.
+server:
+  name: boosted-commerce-ucp-shopping
+  protocol: MCP (JSON-RPC 2.0 over HTTP POST)
+  transport: http
+  platform: Shopify
+  service: dev.ucp.shopping
+  ucp_version: '2026-04-08'
+  ucp_supported_versions:
+  - '2026-04-08'
+  - '2026-01-23'
+  schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  spec: https://ucp.dev/2026-04-08/specification/overview/
+  authentication: none for tools/list and catalog reads; checkout completion requires buyer approval via a payment handler
+  endpoints:
+  - brand: Prime Labs
+    url: https://primelabs.org/api/ucp/mcp
+    discovery: https://primelabs.org/.well-known/ucp
+    http_status: 200
+  - brand: Vital Vitamins
+    url: https://www.myvitalvitamins.com/api/ucp/mcp
+    discovery: https://www.myvitalvitamins.com/.well-known/ucp
+    http_status: 200
+  - brand: Happy Healthy Hippie
+    url: https://happyhealthyhippieco.com/api/ucp/mcp
+    discovery: https://happyhealthyhippieco.com/.well-known/ucp
+    http_status: 200
+  - brand: Asterwood
+    url: https://www.asterwood.co/api/ucp/mcp
+    discovery: https://www.asterwood.co/.well-known/ucp
+    http_status: 200
+capabilities:
+- dev.ucp.shopping.catalog.search
+- dev.ucp.shopping.catalog.lookup
+- dev.ucp.shopping.cart
+- dev.ucp.shopping.checkout
+- dev.ucp.shopping.fulfillment
+- dev.ucp.shopping.discount
+- dev.ucp.shopping.order
+- dev.shopify.catalog
+payment_handlers:
+- id: com.google.pay
+  version: '2026-01-11'
+- id: dev.shopify.card
+tools:
+- name: search_catalog
+  category: catalog
+  description: >-
+    Search for products from the online store using natural language queries, filter criteria, or
+    both. At least one of query or filters must be provided. Results are cursor-paginated.
+  required: [meta, catalog]
+- name: lookup_catalog
+  category: catalog
+  description: >-
+    Look up multiple products or variants by identifier (gid://shopify/Product/... or
+    gid://shopify/ProductVariant/...) in a single request. Results are grouped by product.
+  required: [meta, catalog]
+- name: get_product
+  category: catalog
+  description: >-
+    Retrieve complete product detail by identifier — variants, exact pricing, real-time
+    availability, and interactive option selection for variant narrowing.
+  required: [meta, catalog]
+- name: create_cart
+  category: cart
+  description: Creates a new cart.
+  required: [meta, cart]
+- name: get_cart
+  category: cart
+  description: Get the cart contents.
+  required: [meta, id]
+- name: update_cart
+  category: cart
+  description: Perform updates to a cart.
+  required: [meta, cart, id]
+- name: cancel_cart
+  category: cart
+  description: Cancels a cart.
+  required: [meta, id]
+- name: create_checkout
+  category: checkout
+  description: >-
+    Creates a checkout. Returns checkout details, including line items, totals, and any applicable
+    discounts or taxes.
+  required: [meta, checkout]
+- name: get_checkout
+  category: checkout
+  description: >-
+    Returns details about the checkout, including line items, totals, and any applicable discounts
+    or taxes.
+  required: [meta, id]
+- name: update_checkout
+  category: checkout
+  description: Updates a checkout — used to set shipping address and fulfillment method.
+  required: [meta, checkout, id]
+- name: complete_checkout
+  category: checkout
+  description: >-
+    Completes a checkout and returns the result, including order ID and Thank You Page URL. Requires
+    meta.idempotency-key and explicit contemporaneous buyer approval of payment.
+  required: [meta, id, checkout]
+  idempotent: true
+  idempotency_key: meta.idempotency-key
+- name: cancel_checkout
+  category: checkout
+  description: Cancels a checkout.
+  required: [meta, id]
+- name: get_order
+  category: order
+  description: Get the details of an order.
+  required: [meta, id]
+tools_list_file: boosted-commerce-ucp-tools-list.json
+x-evidence:
+  fetched: '2026-08-08'
+  method: POST
+  url: https://primelabs.org/api/ucp/mcp
+  body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  bytes: 42650
+  tools_returned: 13
+  identical_across_brand_hosts: true

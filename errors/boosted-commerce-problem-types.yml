@@ -1,0 +1,78 @@
+generated: '2026-08-08'
+method: probed
+source: live error responses from https://primelabs.org/api/ucp/mcp on 2026-08-08
+format: jsonrpc-2.0-error
+note: >-
+  Boosted Commerce publishes no error reference. This catalog records only error shapes that were
+  actually observed against the live UCP MCP endpoint, plus the one rate-limit signal the provider
+  documents in its own agent instructions. It is deliberately incomplete: the checkout, cart,
+  fulfillment and payment error families cannot be reached without a resolvable UCP agent profile,
+  so they are not asserted here.
+
+envelope:
+  transport_status: HTTP 422 observed for every error case below (the JSON-RPC body carries the real code)
+  shape: |
+    {
+      "jsonrpc": "2.0",
+      "id": <request id>,
+      "error": {
+        "code": <integer, JSON-RPC or UCP implementation-defined>,
+        "message": "<human readable>",
+        "data": {
+          "code": "<machine readable semantic code>",
+          "content": "<detail>",
+          "continue_url": "<URL to hand the buyer back to a human checkout>"
+        }
+      }
+    }
+  fields:
+  - name: error.code
+    type: integer
+    note: JSON-RPC 2.0 numeric code; -32001 observed as the UCP implementation-defined error.
+  - name: error.data.code
+    type: string
+    note: The semantic code an agent should branch on.
+  - name: error.data.continue_url
+    type: string (uri)
+    note: >-
+      Human-handoff URL. Present on every observed error, letting an agent that cannot recover fall
+      back to a browser checkout rather than failing the buyer outright.
+
+problems:
+- code: -32001
+  data_code: invalid_profile_url
+  message: UCP discovery failed
+  detail: 'Unable to fetch agent profile: Missing profile uri'
+  http_status: 422
+  cause: >-
+    The request omitted meta.ucp-agent.profile, or the method/params could not be resolved far
+    enough to read it. Agent profile discovery runs before method dispatch — an unknown JSON-RPC
+    method and a tools/call with empty arguments both surface this same error rather than -32601 or
+    -32602.
+  remediation: Send a resolvable `meta.ucp-agent.profile` URI on every call.
+  observed: true
+- code: -32001
+  data_code: profile_unreachable
+  message: UCP discovery failed
+  detail: 'Unable to fetch agent profile: Http error'
+  http_status: 422
+  cause: The supplied meta.ucp-agent.profile URI was present but could not be fetched by the server.
+  remediation: >-
+    Host the agent profile document at a publicly reachable HTTPS URL before calling any tool.
+  observed: true
+- status: 429
+  data_code: rate_limited
+  message: Too Many Requests
+  cause: Per-IP rate limit on the MCP endpoint.
+  remediation: Back off and retry.
+  observed: false
+  evidence: >-
+    Documented by the provider — "The MCP endpoint is rate-limited per IP. Back off on 429
+    responses." — https://primelabs.org/agents.md. Not reproduced during this pass.
+
+x-evidence:
+- url: https://primelabs.org/api/ucp/mcp
+  method: POST
+  http_status: 422
+  fetched: '2026-08-08'
+  note: three distinct malformed requests, three JSON-RPC error bodies captured verbatim above

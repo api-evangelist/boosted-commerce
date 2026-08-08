@@ -1,0 +1,66 @@
+generated: '2026-08-08'
+method: probed
+source: https://primelabs.org/.well-known/ucp + https://primelabs.org/agents.md
+note: >-
+  Boosted Commerce publishes no versioning policy, deprecation policy, SLA or status page of its
+  own. The only lifecycle contract on the agent surface is the one the Universal Commerce Protocol
+  itself carries: a dated protocol version, an explicit supported-versions map, and a version-pinned
+  discovery document per version. That is recorded here; nothing else is asserted.
+
+versioning:
+  scheme: dated protocol version
+  current: '2026-04-08'
+  supported:
+  - version: '2026-04-08'
+    status: latest stable
+    discovery: https://prime-labs-supplements.myshopify.com/.well-known/ucp/2026-04-08
+  - version: '2026-01-23'
+    status: supported
+    discovery: https://prime-labs-supplements.myshopify.com/.well-known/ucp/2026-01-23
+  negotiation: >-
+    Agents read /.well-known/ucp, pick a version from supported_versions, and fetch the
+    version-pinned profile at the URL that map points to.
+  in_endpoint_path: false
+  docs: https://ucp.dev/2026-04-08/specification/overview/
+  evidence: >-
+    ucp.supported_versions in https://primelabs.org/.well-known/ucp (HTTP 200, 2026-08-08); also
+    stated in the "Supported UCP Versions" section of https://primelabs.org/agents.md.
+
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  note: >-
+    No deprecation or sunset policy is published on any Boosted Commerce host. Older protocol
+    versions are listed as supported without a stated removal date. No `Deprecation` pointer is
+    wired in apis.yml as a result.
+
+sla:
+  url: null
+  published: false
+
+status_page:
+  url: null
+  published: false
+  note: >-
+    No status.boostedcommerce.com or per-brand status page exists (DNS for
+    status.boostedcommerce.com does not resolve). The underlying platform's status page belongs to
+    Shopify, not to Boosted Commerce, so no `StatusPage` pointer is wired in apis.yml.
+
+changelog:
+  url: null
+  published: false
+  note: >-
+    The corporate site's WordPress feed (https://boostedcommerce.com/feed/) returns HTTP 200 with
+    zero items; there is no blog or changelog. No `ChangeLog` or `Blog` pointer is wired.
+
+deprecated_operations: []
+
+x-evidence:
+- url: https://primelabs.org/.well-known/ucp
+  http_status: 200
+  fetched: '2026-08-08'
+- url: https://boostedcommerce.com/feed/
+  http_status: 200
+  fetched: '2026-08-08'
+  note: valid RSS, zero <item> elements

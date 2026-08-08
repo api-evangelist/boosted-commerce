@@ -1,0 +1,110 @@
+generated: '2026-08-08'
+method: probed
+source: live GET probes of every Boosted Commerce host on 2026-08-08
+note: >-
+  Boosted Commerce's own corporate host (boostedcommerce.com, WordPress behind Cloudflare) returns
+  403 from the origin nginx for every /.well-known/* path — no security.txt, no OIDC/OAuth metadata,
+  no agent card. The real discovery surface lives on the four brand storefronts, which are Shopify
+  and serve a Universal Commerce Protocol merchant profile at /.well-known/ucp. No A2A agent card
+  was found on any host, so no a2a/ artifact was written.
+hosts:
+- host: https://boostedcommerce.com
+  role: corporate site (WordPress / Cloudflare)
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /llms.txt
+    status: 404
+  - path: /openapi.json
+    status: 404
+  - path: /swagger.json
+    status: 404
+  - path: /api-docs
+    status: 404
+  - path: /robots.txt
+    status: 200
+  - path: /wp-json/
+    status: 200
+    note: WordPress core REST API for the marketing site; not a product API surface.
+- host: https://primelabs.org
+  role: brand storefront (Shopify)
+  documents:
+  - path: /.well-known/ucp
+    status: 200
+    content_type: application/json
+    file: boosted-commerce-prime-labs-ucp.json
+  - path: /llms.txt
+    status: 200
+    content_type: text/markdown
+  - path: /agents.md
+    status: 200
+    content_type: text/markdown
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://www.myvitalvitamins.com
+  role: brand storefront (Shopify)
+  documents:
+  - path: /.well-known/ucp
+    status: 200
+    content_type: application/json
+    file: boosted-commerce-vital-vitamins-ucp.json
+  - path: /llms.txt
+    status: 200
+  - path: /agents.md
+    status: 200
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://happyhealthyhippieco.com
+  role: brand storefront (Shopify)
+  documents:
+  - path: /.well-known/ucp
+    status: 200
+    content_type: application/json
+    file: boosted-commerce-happy-healthy-hippie-ucp.json
+  - path: /llms.txt
+    status: 200
+  - path: /agents.md
+    status: 200
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://www.asterwood.co
+  role: brand storefront (Shopify)
+  documents:
+  - path: /.well-known/ucp
+    status: 200
+    content_type: application/json
+    file: boosted-commerce-asterwood-ucp.json
+  - path: /llms.txt
+    status: 200
+  - path: /agents.md
+    status: 200
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://api.boostedcommerce.com
+  role: DNS-only Cloudflare record, no working origin
+  documents:
+  - path: /
+    status: 0
+    note: DNS resolves to Cloudflare (104.21.70.175 / 172.67.138.10) but no TLS connection completes.

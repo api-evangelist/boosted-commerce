@@ -1,0 +1,74 @@
+generated: '2026-08-08'
+method: probed
+source: https://primelabs.org/agents.md + live unauthenticated POST to https://primelabs.org/api/ucp/mcp
+note: >-
+  Boosted Commerce publishes no API keys, OAuth client registration, or developer accounts. The
+  agent-commerce surface on its brand storefronts is deliberately anonymous: `tools/list` and the
+  catalog/cart/checkout tools were exercised with no credentials of any kind. Authorization is not
+  carried by a token at all — it is carried by the buyer, at the moment of payment, through a UCP
+  payment handler. Absence of an auth scheme here is the design, not a gap.
+schemes:
+- id: anonymous
+  type: none
+  applies_to:
+  - tools/list
+  - search_catalog
+  - lookup_catalog
+  - get_product
+  - create_cart
+  - get_cart
+  - update_cart
+  - cancel_cart
+  - create_checkout
+  - get_checkout
+  - update_checkout
+  - cancel_checkout
+  - get_order
+  evidence: >-
+    POST https://primelabs.org/api/ucp/mcp with no Authorization header returned HTTP 200 and a full
+    13-tool manifest on 2026-08-08.
+- id: ucp-agent-profile
+  type: agentIdentity
+  in: request body
+  parameter: meta.ucp-agent.profile
+  required: true
+  description: >-
+    Every tool call must carry a `meta.ucp-agent.profile` URI identifying the calling agent for UCP
+    discovery. This identifies the agent; it does not authenticate or authorize it.
+  evidence: '`meta.ucp-agent` is a required property of every one of the 13 tool inputSchemas.'
+- id: buyer-approval
+  type: humanInTheLoop
+  applies_to:
+  - complete_checkout
+  required: true
+  description: >-
+    Payment completion requires explicit, contemporaneous buyer approval. Agents that cannot obtain
+    it are instructed to route the purchase through Shop Pay via the Shop skill instead.
+  evidence: >-
+    "Checkout requires human approval. Agents must not complete payment without explicit buyer
+    consent." — https://primelabs.org/agents.md
+- id: payment-handlers
+  type: delegatedPayment
+  handlers:
+  - id: com.google.pay
+    version: '2026-01-11'
+  - id: dev.shopify.card
+  description: >-
+    Payment instruments are supplied through UCP payment handlers declared in the store's
+    /.well-known/ucp profile, not through credentials issued by Boosted Commerce.
+oauth2: false
+openid_connect: false
+api_keys: false
+mutual_tls: false
+docs: https://primelabs.org/agents.md
+x-evidence:
+- url: https://primelabs.org/api/ucp/mcp
+  method: POST
+  http_status: 200
+  fetched: '2026-08-08'
+- url: https://primelabs.org/.well-known/ucp
+  http_status: 200
+  fetched: '2026-08-08'
+- url: https://boostedcommerce.com/.well-known/openid-configuration
+  http_status: 403
+  fetched: '2026-08-08'

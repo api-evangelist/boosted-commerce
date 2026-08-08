@@ -1,0 +1,40 @@
+generated: '2026-08-08'
+method: generated
+source: mcp/boosted-commerce-ucp-tools-list.json + https://primelabs.org/agents.md
+note: >-
+  Boosted Commerce publishes no Agent Skills of its own. Its brand storefronts point agents at
+  Shopify's cross-store Shop skill (https://shop.app/SKILL.md), which is Shopify's artifact, not
+  Boosted Commerce's. The two skills below are API Evangelist generated and are grounded strictly in
+  tool names, required parameters and rules taken from the live tools/list response and the
+  provider's own published agent instructions — no tool, parameter or error code is invented.
+skills:
+- name: boosted-commerce-shop-catalog
+  file: boosted-commerce-shop-catalog.md
+  summary: Search, bulk-resolve and inspect products in a Boosted Commerce brand storefront. Read-only.
+  operations:
+  - search_catalog
+  - lookup_catalog
+  - get_product
+- name: boosted-commerce-agent-checkout
+  file: boosted-commerce-agent-checkout.md
+  summary: >-
+    Cart to completed order with buyer-approved payment and an idempotent completion step, plus the
+    observed error branches.
+  operations:
+  - create_cart
+  - get_cart
+  - update_cart
+  - cancel_cart
+  - create_checkout
+  - get_checkout
+  - update_checkout
+  - complete_checkout
+  - cancel_checkout
+  - get_order
+provider_published_skills:
+- name: Shop skill
+  url: https://shop.app/SKILL.md
+  owner: Shopify
+  note: >-
+    Recommended by Boosted Commerce's brand agents.md for personal shopping assistants. Cross-store,
+    platform-owned — not a Boosted Commerce artifact and not saved into this repo.
