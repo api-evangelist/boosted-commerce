@@ -1,0 +1,35 @@
+# Kin Score artifact — boosted-commerce — 2026-08-10T111628
+# The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
+---
+kin_score:
+  slug: boosted-commerce
+  schema_version: 0.9.1
+  scored_at: '2026-08-10'
+  run_ts: 2026-08-10T111628
+  composite: 21.7
+  band: emerging
+  facets:
+    discoverability: 92.6
+    contract_quality: 0.0
+    governance: 12.5
+    operational_transparency: 5.3
+    developer_ergonomics: 30.4
+    commercial_clarity: 21.1
+  agent_readiness:
+    score: 38.7
+    band: agent-ready
+    dimensions:
+      spec_presence: false
+      agentic_access: false
+      mcp_server: true
+      auth_clarity: true
+      idempotency: documented
+      error_semantics: documented
+      openapi_examples: false
+      rate_limit_signal: documented
+      event_surface_described: false
+      agent_skills: true
+      well_known_catalog: true
+      consent_identity: false
+      agent_card: false
+      dry_run_mode: false
