@@ -2,15 +2,14 @@ generated: '2026-08-08'
 method: probed
 status: published
 source: https://primelabs.org/api/ucp/mcp
-note: >-
-  Live, anonymous MCP endpoint. `tools/list` was called over JSON-RPC 2.0 with no credentials and
-  returned HTTP 200 with 13 tools and full JSON Schema (draft 2020-12) inputSchemas. The verbatim
-  response is saved at mcp/boosted-commerce-ucp-tools-list.json. All four Boosted Commerce brand
-  storefronts returned a byte-identical tool set — the server is provided by the Shopify platform
-  as its Universal Commerce Protocol (UCP) shopping service, deployed on each brand's own host and
-  operating over that brand's own catalog. This is a platform-supplied surface, not a first-party
-  Boosted Commerce engineering artifact; it is recorded here because it is genuinely served from
-  hosts Boosted Commerce owns and is callable by agents today.
+note: Live, anonymous MCP endpoint. `tools/list` was called over JSON-RPC 2.0 with no credentials and
+  returned HTTP 200 with 13 tools and full JSON Schema (draft 2020-12) inputSchemas. The verbatim response
+  is saved at mcp/boosted-commerce-ucp-tools-list.json. All four Boosted Commerce brand storefronts returned
+  a byte-identical tool set — the server is provided by the Shopify platform as its Universal Commerce
+  Protocol (UCP) shopping service, deployed on each brand's own host and operating over that brand's own
+  catalog. This is a platform-supplied surface, not a first-party Boosted Commerce engineering artifact;
+  it is recorded here because it is genuinely served from hosts Boosted Commerce owns and is callable
+  by agents today.
 server:
   name: boosted-commerce-ucp-shopping
   protocol: MCP (JSON-RPC 2.0 over HTTP POST)
@@ -23,7 +22,8 @@ server:
   - '2026-01-23'
   schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
   spec: https://ucp.dev/2026-04-08/specification/overview/
-  authentication: none for tools/list and catalog reads; checkout completion requires buyer approval via a payment handler
+  authentication: none for tools/list and catalog reads; checkout completion requires buyer approval via
+    a payment handler
   endpoints:
   - brand: Prime Labs
     url: https://primelabs.org/api/ucp/mcp
@@ -57,70 +57,93 @@ payment_handlers:
 tools:
 - name: search_catalog
   category: catalog
-  description: >-
-    Search for products from the online store using natural language queries, filter criteria, or
-    both. At least one of query or filters must be provided. Results are cursor-paginated.
-  required: [meta, catalog]
+  description: Search for products from the online store using natural language queries, filter criteria,
+    or both. At least one of query or filters must be provided. Results are cursor-paginated.
+  required:
+  - meta
+  - catalog
 - name: lookup_catalog
   category: catalog
-  description: >-
-    Look up multiple products or variants by identifier (gid://shopify/Product/... or
-    gid://shopify/ProductVariant/...) in a single request. Results are grouped by product.
-  required: [meta, catalog]
+  description: Look up multiple products or variants by identifier (gid://shopify/Product/... or gid://shopify/ProductVariant/...)
+    in a single request. Results are grouped by product.
+  required:
+  - meta
+  - catalog
 - name: get_product
   category: catalog
-  description: >-
-    Retrieve complete product detail by identifier — variants, exact pricing, real-time
-    availability, and interactive option selection for variant narrowing.
-  required: [meta, catalog]
+  description: Retrieve complete product detail by identifier — variants, exact pricing, real-time availability,
+    and interactive option selection for variant narrowing.
+  required:
+  - meta
+  - catalog
 - name: create_cart
   category: cart
   description: Creates a new cart.
-  required: [meta, cart]
+  required:
+  - meta
+  - cart
 - name: get_cart
   category: cart
   description: Get the cart contents.
-  required: [meta, id]
+  required:
+  - meta
+  - id
 - name: update_cart
   category: cart
   description: Perform updates to a cart.
-  required: [meta, cart, id]
+  required:
+  - meta
+  - cart
+  - id
 - name: cancel_cart
   category: cart
   description: Cancels a cart.
-  required: [meta, id]
+  required:
+  - meta
+  - id
 - name: create_checkout
   category: checkout
-  description: >-
-    Creates a checkout. Returns checkout details, including line items, totals, and any applicable
+  description: Creates a checkout. Returns checkout details, including line items, totals, and any applicable
     discounts or taxes.
-  required: [meta, checkout]
+  required:
+  - meta
+  - checkout
 - name: get_checkout
   category: checkout
-  description: >-
-    Returns details about the checkout, including line items, totals, and any applicable discounts
+  description: Returns details about the checkout, including line items, totals, and any applicable discounts
     or taxes.
-  required: [meta, id]
+  required:
+  - meta
+  - id
 - name: update_checkout
   category: checkout
   description: Updates a checkout — used to set shipping address and fulfillment method.
-  required: [meta, checkout, id]
+  required:
+  - meta
+  - checkout
+  - id
 - name: complete_checkout
   category: checkout
-  description: >-
-    Completes a checkout and returns the result, including order ID and Thank You Page URL. Requires
-    meta.idempotency-key and explicit contemporaneous buyer approval of payment.
-  required: [meta, id, checkout]
+  description: Completes a checkout and returns the result, including order ID and Thank You Page URL.
+    Requires meta.idempotency-key and explicit contemporaneous buyer approval of payment.
+  required:
+  - meta
+  - id
+  - checkout
   idempotent: true
   idempotency_key: meta.idempotency-key
 - name: cancel_checkout
   category: checkout
   description: Cancels a checkout.
-  required: [meta, id]
+  required:
+  - meta
+  - id
 - name: get_order
   category: order
   description: Get the details of an order.
-  required: [meta, id]
+  required:
+  - meta
+  - id
 tools_list_file: boosted-commerce-ucp-tools-list.json
 x-evidence:
   fetched: '2026-08-08'
@@ -132,3 +155,11 @@ x-evidence:
   bytes: 42650
   tools_returned: 13
   identical_across_brand_hosts: true
+deployment:
+  mode: remote
+  endpoint: https://primelabs.org/api/ucp/mcp
+  verified: probed
+  probe: live
+  tools: 13
+  checked: '2026-08-12'
+  source: catalog MCP census
