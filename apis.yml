@@ -30,6 +30,19 @@ tags:
 - Beauty
 - Agentic Commerce
 - Universal Commerce Protocol
+- MCP
+- Shopify
+- Direct to Consumer
+tags_raw:
+- Company
+- E-Commerce
+- Retail
+- Consumer Packaged Goods
+- Health and Wellness
+- Supplements
+- Beauty
+- Agentic Commerce
+- Universal Commerce Protocol
 - Model Context Protocol
 - Shopify
 - Direct to Consumer
@@ -44,6 +57,12 @@ apis:
   humanURL: https://primelabs.org/agents.md
   baseURL: https://primelabs.org/api/ucp/mcp
   tags:
+  - Agentic Commerce
+  - MCP
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Supplements
+  tags_raw:
   - Agentic Commerce
   - Model Context Protocol
   - Universal Commerce Protocol
@@ -73,6 +92,12 @@ apis:
   baseURL: https://www.myvitalvitamins.com/api/ucp/mcp
   tags:
   - Agentic Commerce
+  - MCP
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Supplements
+  tags_raw:
+  - Agentic Commerce
   - Model Context Protocol
   - Universal Commerce Protocol
   - E-Commerce
@@ -97,6 +122,12 @@ apis:
   baseURL: https://happyhealthyhippieco.com/api/ucp/mcp
   tags:
   - Agentic Commerce
+  - MCP
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Supplements
+  tags_raw:
+  - Agentic Commerce
   - Model Context Protocol
   - Universal Commerce Protocol
   - E-Commerce
@@ -120,6 +151,12 @@ apis:
   humanURL: https://www.asterwood.co/agents.md
   baseURL: https://www.asterwood.co/api/ucp/mcp
   tags:
+  - Agentic Commerce
+  - MCP
+  - Universal Commerce Protocol
+  - E-Commerce
+  - Beauty
+  tags_raw:
   - Agentic Commerce
   - Model Context Protocol
   - Universal Commerce Protocol
