@@ -12,6 +12,17 @@ description: >-
   /llms.txt and /agents.md, and a Model Context Protocol endpoint at /api/ucp/mcp exposing 13
   catalog, cart, checkout and order tools with published JSON Schema inputs.
 url: https://raw.githubusercontent.com/api-evangelist/boosted-commerce/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://boostedcommerce.com/wp-content/uploads/2026/07/Boosted_Green_Ico_512-300x300.png
 x-type: company
 x-source: harvest:secondary-market
