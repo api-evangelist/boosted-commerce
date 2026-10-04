@@ -107,6 +107,9 @@ apis:
     url: https://primelabs.org/policies/terms-of-service
   - type: PrivacyPolicy
     url: https://primelabs.org/policies/privacy-policy
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 - name: Vital Vitamins Storefront Agent API (UCP / MCP)
   description: >-
     Anonymous agent-commerce surface for the Vital Vitamins beauty and longevity supplement
@@ -137,6 +140,9 @@ apis:
     url: well-known/boosted-commerce-vital-vitamins-ucp.json
   - type: Website
     url: https://www.myvitalvitamins.com
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 - name: Happy Healthy Hippie Storefront Agent API (UCP / MCP)
   description: >-
     Anonymous agent-commerce surface for the Happy Healthy Hippie plant-based herbal wellness
@@ -167,6 +173,9 @@ apis:
     url: well-known/boosted-commerce-happy-healthy-hippie-ucp.json
   - type: Website
     url: https://happyhealthyhippieco.com
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 - name: Asterwood Storefront Agent API (UCP / MCP)
   description: >-
     Anonymous agent-commerce surface for the Asterwood peptide-powered skincare storefront,
@@ -197,6 +206,9 @@ apis:
     url: well-known/boosted-commerce-asterwood-ucp.json
   - type: Website
     url: https://www.asterwood.co
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
