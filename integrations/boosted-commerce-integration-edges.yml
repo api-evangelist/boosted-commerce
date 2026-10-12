@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/boosted-commerce/integrations
+- https://n8n.io/integrations/boosted-commerce/
+- https://composio.dev/toolkits/boosted-commerce
+- https://monid.ai/tools/boosted-commerce
+checked:
+- https://composio.dev/toolkits/boosted-commerce
+- https://monid.ai/tools/boosted-commerce
+- https://n8n.io/integrations/boosted-commerce/
+- https://zapier.com/apps/boosted-commerce/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
