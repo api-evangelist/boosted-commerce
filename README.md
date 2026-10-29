@@ -64,5 +64,97 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Boosted Commerce is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/boosted-commerce_stock/
+Boosted Commerce is a Los Angeles based consumer brand platform that acquires and operates direct-to-consumer and Amazon FBA businesses in health, wellness, beauty and longevity. Founded by Keith Richman and Charlie Chanaratsopon, the company runs a portfolio of supplement and skincare brands — Prime Labs, Vital Vitamins, Happy Healthy Hippie and Asterwood — and is expanding those brands from marketplace and DTC channels into national retail with EDI-ready vendor operations. Boosted Commerce publishes no first-party developer program of its own, but every brand storefront runs on Shopify and serves a live, anonymous agent-commerce surface: a Universal Commerce Protocol (UCP) merchant profile at /.well-known/ucp, agent instructions at /llms.txt and /agents.md, and a Model Context Protocol endpoint at /api/ucp/mcp exposing 13 catalog, cart, checkout and order tools with published JSON Schema inputs.
+
+**Areas:** Company · E-Commerce · Retail · Consumer Packaged Goods · Health and Wellness · Supplements · Beauty · Agentic Commerce · Universal Commerce Protocol · MCP · Shopify · Direct to Consumer
+
+## Boosted Commerce on APIs.io
+
+Everything profiled for Boosted Commerce is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/boosted-commerce/](https://apis.io/providers/boosted-commerce/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Prime Labs Storefront Agent API (UCP / MCP)](https://apis.io/apis/boosted-commerce/prime-labs-storefront-agent-api-ucp-mcp/) — Anonymous agent-commerce surface for the Prime Labs supplement storefront, implementing the Universal Commerce Protocol 2026-04-08 over MCP. Thirteen tools…
+- [Vital Vitamins Storefront Agent API (UCP / MCP)](https://apis.io/apis/boosted-commerce/vital-vitamins-storefront-agent-api-ucp-mcp/) — Anonymous agent-commerce surface for the Vital Vitamins beauty and longevity supplement storefront, implementing the Universal Commerce Protocol 2026-04-08…
+- [Happy Healthy Hippie Storefront Agent API (UCP / MCP)](https://apis.io/apis/boosted-commerce/happy-healthy-hippie-storefront-agent-api-ucp-mcp/) — Anonymous agent-commerce surface for the Happy Healthy Hippie plant-based herbal wellness storefront, implementing the Universal Commerce Protocol…
+- [Asterwood Storefront Agent API (UCP / MCP)](https://apis.io/apis/boosted-commerce/asterwood-storefront-agent-api-ucp-mcp/) — Anonymous agent-commerce surface for the Asterwood peptide-powered skincare storefront, implementing the Universal Commerce Protocol 2026-04-08 over MCP…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [boosted-commerce-ucp-shopping](https://apis.io/servers/boosted-commerce/boosted-commerce-ucp-shopping/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Boosted Commerce Authentication](https://apis.io/security/boosted-commerce/boosted-commerce-authentication/)
+- [Boosted Commerce Domain Security](https://apis.io/security/boosted-commerce/boosted-commerce-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://boostedcommerce.com)
+- [Support](https://boostedcommerce.com/contact/)
+- [Terms of service](https://boostedcommerce.com/terms-of-service/)
+- [Privacy policy](https://boostedcommerce.com/privacy-policy-2/)
+- [GitHub](https://github.com/boosted-commerce)
+
+## API Evangelist rating
+
+**Kin Score 21.5** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 28.0 |
+| Access clarity | 21.1 |
+
+**Agent readiness 15.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+
+**Regulatory alignment 19.5** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/boosted-commerce/](https://apis.io/providers/boosted-commerce/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Boosted Commerce: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/boosted-commerce/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
